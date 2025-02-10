@@ -74,14 +74,17 @@ class RepoScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 4),
-                    InkWell(
-                      onTap: () => launchUrl(Uri.parse(repo.url)),
-                      child: Text(
-                        repo.url,
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline,
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: InkWell(
+                        onTap: () => launchUrl(Uri.parse(repo.url)),
+                        child: Text(
+                          repo.url,
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
                     ),
