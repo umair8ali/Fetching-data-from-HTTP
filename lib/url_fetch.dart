@@ -1,4 +1,5 @@
-import 'package:fetch_url/repo.dart';
+import 'package:fetch_url/Repo.dart';
+import 'package:fetch_url/repo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -29,7 +30,7 @@ class _UrlFetchState extends State<UrlFetch> {
       final response = await http.get(url);
       if (response.statusCode == 200) {
         data = response.body;
-        debugPrint(data);
+        // debugPrint(data);
         final List<dynamic> jsonList = json.decode(data!);
         repos = jsonList.map((repo) => Repo.fromJson(repo)).toList();
         setState(() {
@@ -84,6 +85,21 @@ class _UrlFetchState extends State<UrlFetch> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
+                            trailing: Icon(
+                              Icons.arrow_forward,
+                              color: Colors.deepPurple,
+                            ),
+                            onTap: () {
+                              if (repos?[index] != null) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        RepoScreen(repo: repos![index]),
+                                  ),
+                                );
+                              }
+                            },
                             leading: Icon(
                               Icons.folder,
                               color: Colors.deepPurple,
@@ -91,13 +107,6 @@ class _UrlFetchState extends State<UrlFetch> {
                           );
                         })
                     : SizedBox(),
-            // ? Padding(
-            //     padding: EdgeInsets.all(16),
-            //     child: SingleChildScrollView(
-            //       child: Text(data!),
-            //     ),
-            //   )
-            // : SizedBox(),
           ),
           Positioned(
             bottom: 40,
